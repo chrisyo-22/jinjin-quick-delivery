@@ -24,13 +24,13 @@ public class JwtUtil {
      * @return JWT in string
      */
     public static String createJWT(String secretKey, long ttlMillis, Map<String, Object> claims) {
-        MacAlgorithm algo = Jwts.SIG.HS512; //or HS384 or HS256
+        MacAlgorithm algo = Jwts.SIG.HS256; //HS256 requires 256 bits (32 bytes)
 
         //  byte[] keyBytes = key.getEncoded();
         //  System.out.println("Key (Base64): " + Base64.getEncoder().encodeToString(keyBytes));
         //  Only if the original secret was UTF-8 text:
         //  System.out.println("Key (UTF-8, may be gibberish): " + new String(keyBytes, StandardCharsets.UTF_8));
-        SecretKey key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey));
+        SecretKey key = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
         String jws = Jwts.builder()
                 .subject("LoginToken")
                 .claims(claims)
@@ -49,7 +49,7 @@ public class JwtUtil {
      * @return
      */
     public static Claims parseJWT(String secretKey, String token){
-        SecretKey key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey));
+        SecretKey key = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
         Claims parsed = Jwts.parser()
                 .verifyWith(key)          // supply the verification key
                 .build()
