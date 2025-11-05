@@ -29,6 +29,11 @@ logging:
         service: info
         controller: info
 
+springdoc:
+  api-docs:
+    enabled: true
+    path: /v3/api-docs
+
 jinjin:
   jwt:
     # 设置jwt签名加密时使用的秘钥 (HS256需要至少32字符/256位)

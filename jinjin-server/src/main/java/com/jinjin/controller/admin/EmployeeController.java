@@ -1,6 +1,7 @@
 package com.jinjin.controller.admin;
 
 import com.jinjin.constant.JwtClaimsConstant;
+import com.jinjin.dto.EmployeeDTO;
 import com.jinjin.dto.EmployeeLoginDTO;
 import com.jinjin.entity.Employee;
 import com.jinjin.properties.JwtProperties;
@@ -8,12 +9,10 @@ import com.jinjin.result.Result;
 import com.jinjin.service.EmployeeService;
 import com.jinjin.utils.JwtUtil;
 import com.jinjin.vo.EmployeeLoginVO;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -66,8 +65,21 @@ public class EmployeeController {
      *
      * @return
      */
+    @Operation(summary = "Add new Employee")
     @PostMapping("/logout")
     public Result<String> logout() {
+        return Result.success();
+    }
+
+    /**
+     * Adds a new employee and retrieves their login details.
+     *
+     * @return a Result object containing the EmployeeLoginVO with employee login details, such as ID, username, name, and token.
+     */
+    @PutMapping
+    public Result<EmployeeLoginVO> addEmp(@RequestBody EmployeeDTO employeeDTO){
+        log.info("adding new employee: {}", employeeDTO);
+        employeeService.addEmp(employeeDTO);
         return Result.success();
     }
 

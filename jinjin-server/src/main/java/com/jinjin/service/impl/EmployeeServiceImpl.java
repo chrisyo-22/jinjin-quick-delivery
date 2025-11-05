@@ -1,7 +1,9 @@
 package com.jinjin.service.impl;
 
 import com.jinjin.constant.MessageConstant;
+import com.jinjin.constant.PasswordConstant;
 import com.jinjin.constant.StatusConstant;
+import com.jinjin.dto.EmployeeDTO;
 import com.jinjin.dto.EmployeeLoginDTO;
 import com.jinjin.entity.Employee;
 import com.jinjin.exception.AccountLockedException;
@@ -9,8 +11,12 @@ import com.jinjin.exception.AccountNotFoundException;
 import com.jinjin.exception.PasswordErrorException;
 import com.jinjin.mapper.EmployeeMapper;
 import com.jinjin.service.EmployeeService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
+
+import java.time.LocalDateTime;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -39,7 +45,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         //密码比对
         // TODO 后期需要进行md5加密，然后再进行比对
-        if (!password.equals(employee.getPassword())) {
+        String md5Password = DigestUtils.md5DigestAsHex(password.getBytes());
+        if (!md5Password.equals(employee.getPassword())) {
             //密码错误
             throw new PasswordErrorException(MessageConstant.PASSWORD_ERROR);
         }
@@ -51,6 +58,27 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         //3、返回实体对象
         return employee;
+    }
+
+    @Override
+    public void addEmp(EmployeeDTO employeeDTO) {
+
+        Employee employee = new Employee();
+        //copy properties
+        BeanUtils.copyProperties(employeeDTO, employee);
+        //1. Fill missing properties
+        employee.setPassword(DigestUtils.md5DigestAsHex(PasswordConstant.DEFAULT_PASSWORD.getBytes()));
+        employee.setStatus(StatusConstant.ENABLE);
+        employee.setCreateTime(LocalDateTime.now());
+        employee.setUpdateTime(LocalDateTime.now());
+        //fix for now
+        employee.setCreateUser(10L);
+        employee.setUpdateUser(10L);
+
+        //2. invoke mapper add method, save this object into employee table
+        employeeMapper.insert(employee);
+
+
     }
 
 }

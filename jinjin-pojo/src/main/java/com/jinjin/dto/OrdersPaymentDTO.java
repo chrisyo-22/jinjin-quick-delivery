@@ -1,14 +1,17 @@
 package com.jinjin.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import java.io.Serializable;
 
 @Data
+@Schema(description = "订单支付数据传输对象")
 public class OrdersPaymentDTO implements Serializable {
-    //订单号
+    
+    @Schema(description = "订单号")
     private String orderNumber;
 
-    //付款方式
+    @Schema(description = "付款方式")
     private Integer payMethod;
 
 }
