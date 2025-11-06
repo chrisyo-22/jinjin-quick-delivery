@@ -3,6 +3,7 @@ package com.jinjin.service.impl;
 import com.jinjin.constant.MessageConstant;
 import com.jinjin.constant.PasswordConstant;
 import com.jinjin.constant.StatusConstant;
+import com.jinjin.context.BaseContext;
 import com.jinjin.dto.EmployeeDTO;
 import com.jinjin.dto.EmployeeLoginDTO;
 import com.jinjin.entity.Employee;
@@ -71,9 +72,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setStatus(StatusConstant.ENABLE);
         employee.setCreateTime(LocalDateTime.now());
         employee.setUpdateTime(LocalDateTime.now());
-        //fix for now
-        employee.setCreateUser(10L);
-        employee.setUpdateUser(10L);
+        //Get EmpID from BaseContext(ThreadLocal)
+        employee.setCreateUser(BaseContext.getCurrentId());
+        employee.setUpdateUser(BaseContext.getCurrentId());
 
         //2. invoke mapper add method, save this object into employee table
         employeeMapper.insert(employee);
