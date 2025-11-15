@@ -3,14 +3,17 @@ package com.jinjin.controller.admin;
 import com.jinjin.constant.JwtClaimsConstant;
 import com.jinjin.dto.EmployeeDTO;
 import com.jinjin.dto.EmployeeLoginDTO;
+import com.jinjin.dto.EmployeePageQueryDTO;
 import com.jinjin.entity.Employee;
 import com.jinjin.properties.JwtProperties;
+import com.jinjin.result.PageResult;
 import com.jinjin.result.Result;
 import com.jinjin.service.EmployeeService;
 import com.jinjin.utils.JwtUtil;
 import com.jinjin.vo.EmployeeLoginVO;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -58,6 +61,22 @@ public class EmployeeController {
                 .build();
 
         return Result.success(employeeLoginVO);
+    }
+
+
+    /**
+     * Query employee by page
+     * @param dto
+     * @return
+     */
+    @Operation(summary = "Query Employee By Page")
+    @GetMapping("/page")
+    public Result<PageResult> page(@ParameterObject EmployeePageQueryDTO dto) {
+        log.info("EmployeePageQueryDTO: {}", dto);
+        log.info("Received parameters - page: {}, pageSize: {}, name: {}", dto.getPage(), dto.getPageSize(), dto.getName());
+        PageResult pageResult = employeeService.page(dto);
+        log.info("pageResult: {}", pageResult);
+        return Result.success(pageResult);
     }
 
     /**

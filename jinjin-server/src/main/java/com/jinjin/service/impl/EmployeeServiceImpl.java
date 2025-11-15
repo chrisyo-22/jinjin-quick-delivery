@@ -1,21 +1,26 @@
 package com.jinjin.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.jinjin.constant.MessageConstant;
 import com.jinjin.constant.PasswordConstant;
 import com.jinjin.constant.StatusConstant;
 import com.jinjin.context.BaseContext;
 import com.jinjin.dto.EmployeeDTO;
 import com.jinjin.dto.EmployeeLoginDTO;
+import com.jinjin.dto.EmployeePageQueryDTO;
 import com.jinjin.entity.Employee;
 import com.jinjin.exception.AccountLockedException;
 import com.jinjin.exception.AccountNotFoundException;
 import com.jinjin.exception.PasswordErrorException;
 import com.jinjin.mapper.EmployeeMapper;
+import com.jinjin.result.PageResult;
 import com.jinjin.service.EmployeeService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
 
@@ -80,6 +85,29 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeMapper.insert(employee);
 
 
+    }
+
+    /**
+     * Use Pager helper plugin
+     * @param dto
+     * @return
+     */
+    @Override
+    public PageResult page(EmployeePageQueryDTO dto) {
+        //1. Normalize pagination parameters (PageHelper uses 1-based pagination)
+        // Handle null values for Integer fields
+        int page = (dto.getPage() <= 0) ? 1 : dto.getPage();
+        int pageSize = (dto.getPageSize() <= 0) ? 10 : dto.getPageSize();
+        
+        //2. set pager params
+        PageHelper.startPage(page, pageSize);
+
+        //3. Call Mapper methods, convert return type to Page Object
+        Page<Employee> pageResult = employeeMapper.list(dto.getName());
+        System.out.println("page object: " + pageResult);
+        
+        //4. Return PageResult with the page data
+        return new PageResult(pageResult.getTotal(), pageResult.getResult());
     }
 
 }
