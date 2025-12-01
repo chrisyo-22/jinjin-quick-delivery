@@ -1,5 +1,6 @@
 package com.jinjin.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -32,6 +33,8 @@ public class Employee implements Serializable {
 
     private Integer status;
 
+    //vs @LocalDateTime : this is to accept request in, but recommend not to use JsonFormat because
+    // you need to modify every properties that are date time
     //@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
