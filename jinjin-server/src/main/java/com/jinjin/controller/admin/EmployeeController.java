@@ -102,4 +102,12 @@ public class EmployeeController {
         return Result.success();
     }
 
+    @Operation(summary = "Enable or Disable Employee")
+    @PostMapping("/status/{status}")
+    public Result enableOrDisableEmp(@PathVariable Integer status, Long id){
+        log.info("changing employee's status: {}, empId: {}", status, id);
+        employeeService.enableOrDisable(status, id);
+        return Result.success();
+    }
+
 }

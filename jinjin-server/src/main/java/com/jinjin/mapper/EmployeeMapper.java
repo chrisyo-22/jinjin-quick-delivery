@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import com.jinjin.entity.Employee;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 @Mapper
 public interface EmployeeMapper {
@@ -30,4 +31,7 @@ public interface EmployeeMapper {
      * @return a paginated list of employees matching the provided name
      */
     Page<Employee> list(String name);
+
+    //@Update("update employee set status = #{status} where id = #{id}")
+    void update(Employee employee);
 }
