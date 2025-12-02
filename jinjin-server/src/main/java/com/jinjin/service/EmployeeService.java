@@ -1,6 +1,5 @@
 package com.jinjin.service;
 
-import com.github.pagehelper.Page;
 import com.jinjin.dto.EmployeeDTO;
 import com.jinjin.dto.EmployeeLoginDTO;
 import com.jinjin.dto.EmployeePageQueryDTO;
@@ -22,4 +21,8 @@ public interface EmployeeService {
     PageResult page(EmployeePageQueryDTO dto);
 
     void enableOrDisable(Integer status, Long id);
+
+    Employee getById(Long id);
+
+    void update(EmployeeDTO employeeDTO);
 }

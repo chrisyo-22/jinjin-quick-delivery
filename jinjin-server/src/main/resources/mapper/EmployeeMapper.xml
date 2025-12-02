@@ -5,7 +5,9 @@
 
 
     <insert id="insert">
-        insert into employee values (null,#{name}, #{username}, #{password}, #{phone}, #{sex}, #{idNumber}, #{status}, #{createTime}, #{updateTime}, #{createUser}, #{updateUser})
+        insert into employee
+        values (null, #{name}, #{username}, #{password}, #{phone}, #{sex}, #{idNumber}, #{status}, #{createTime},
+                #{updateTime}, #{createUser}, #{updateUser})
     </insert>
 
     <!-- Update employee   -->
@@ -46,11 +48,16 @@
     <!-- blur search based on name and order by create time   -->
     <select id="list" resultType="com.jinjin.entity.Employee">
         select * from employee
-            <where>
-                <if test="name != null and name != ''">
-                    name like concat('%', #{name}, '%')
-                </if>
-            </where>
+        <where>
+            <if test="name != null and name != ''">
+                name like concat('%', #{name}, '%')
+            </if>
+        </where>
         order by create_time desc
+    </select>
+
+    <!-- Query Employee by id   -->
+    <select id="getById" resultType="com.jinjin.entity.Employee">
+        select * from employee where id = #{id}
     </select>
 </mapper>
