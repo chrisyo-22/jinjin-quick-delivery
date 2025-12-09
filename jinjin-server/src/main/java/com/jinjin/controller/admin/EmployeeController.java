@@ -1,7 +1,6 @@
 package com.jinjin.controller.admin;
 
 import com.jinjin.constant.JwtClaimsConstant;
-import com.jinjin.context.BaseContext;
 import com.jinjin.dto.EmployeeDTO;
 import com.jinjin.dto.EmployeeLoginDTO;
 import com.jinjin.dto.EmployeePageQueryDTO;
@@ -15,11 +14,9 @@ import com.jinjin.vo.EmployeeLoginVO;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springdoc.core.annotations.ParameterObject;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -87,7 +84,7 @@ public class EmployeeController {
      *
      * @return
      */
-    @Operation(summary = "Add new Employee")
+    @Operation(summary = "Logout")
     @PostMapping("/logout")
     public Result<String> logout() {
         return Result.success();

@@ -1,4 +1,4 @@
-package com.jinjin.controller.admin;
+package com.jinjin.controller;
 
 import com.jinjin.dto.CategoryDTO;
 import com.jinjin.dto.CategoryPageQueryDTO;

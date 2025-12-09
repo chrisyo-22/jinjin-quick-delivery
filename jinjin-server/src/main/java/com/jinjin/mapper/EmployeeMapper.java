@@ -1,7 +1,9 @@
 package com.jinjin.mapper;
 
 import com.github.pagehelper.Page;
+import com.jinjin.anno.AutoFill;
 import com.jinjin.entity.Employee;
+import com.jinjin.enumeration.OperationType;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -21,6 +23,7 @@ public interface EmployeeMapper {
      * Add new employee
      * @param employee
      */
+    @AutoFill(OperationType.INSERT)
     void insert(Employee employee);
 
 
@@ -33,6 +36,7 @@ public interface EmployeeMapper {
     Page<Employee> list(String name);
 
     //@Update("update employee set status = #{status} where id = #{id}")
+    @AutoFill(OperationType.UPDATE)
     void update(Employee employee);
 
 
