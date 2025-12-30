@@ -1,6 +1,7 @@
 package com.jinjin.utils;
 
 import com.jinjin.properties.AwsS3Properties;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import software.amazon.awssdk.core.async.AsyncRequestBody;
 import software.amazon.awssdk.services.s3.S3AsyncClient;
@@ -28,15 +29,14 @@ import java.util.concurrent.CompletionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-
+@AllArgsConstructor
 @Slf4j
 public class AwsS3Utils {
 
+    private String bucketName;
+    private String aws_region;
 //    public static final String BUCKET_NAME = "amz-chris-yo-22-wode-mingzi-hello-world";
-    private static final AwsS3Properties awsS3Properties;
-    static{
-        awsS3Properties = new AwsS3Properties();
-    }
+
     private static final Map<String, String> ALLOWED_TYPES = Map.of(
             "image/jpeg", "jpg",
             "image/png", "png",
@@ -61,7 +61,7 @@ public class AwsS3Utils {
 
             // Put object (async) and block for completion to keep behavior consistent with other methods
             CompletableFuture<PutObjectResponse> responseFuture = s3AsyncClient.putObject(
-                    r -> r.bucket(awsS3Properties.getBucketName())
+                    r -> r.bucket(bucketName)
                             .key(objectName)
                             .contentLength((long) bytes.length),
                     body
@@ -77,12 +77,12 @@ public class AwsS3Utils {
             }
 
             log.info("Uploaded object [{}] to bucket [{}] (ETag={})",
-                    objectName, awsS3Properties.getBucketName(), putResponse.eTag());
+                    objectName, bucketName, putResponse.eTag());
 
             // Build a durable public URL for the object.
             // We URL-encode each path segment to handle spaces/special chars but preserve slashes.
-            String bucket = awsS3Properties.getBucketName();
-            String region = awsS3Properties.getRegion();
+            String bucket = bucketName;
+            String region = aws_region;
 
             // Safe encode path segments while preserving '/'
             String[] segments = objectName.split("/");
@@ -127,7 +127,7 @@ public class AwsS3Utils {
         AsyncRequestBody body = AsyncRequestBody.fromInputStream(inputStream, null, executor); // 'null' indicates that the
         // content length is unknown.
         CompletableFuture<PutObjectResponse> responseFuture =
-                s3AsyncClient.putObject(r -> r.bucket(awsS3Properties.getBucketName()).key(key), body)
+                s3AsyncClient.putObject(r -> r.bucket(bucketName).key(key), body)
                         .exceptionally(e -> {
                             if (e != null) {
                                 log.error(e.getMessage(), e);
@@ -144,7 +144,7 @@ public class AwsS3Utils {
     public String UploadFile(String key, URI filePathURI) {
 
         UploadFileRequest uploadFileRequest = UploadFileRequest.builder()
-                .putObjectRequest(b -> b.bucket(awsS3Properties.getBucketName()).key(key))
+                .putObjectRequest(b -> b.bucket(bucketName).key(key))
                 .addTransferListener(LoggingTransferListener.create())  // Add listener.
                 .source(Paths.get(filePathURI))
                 .build();
@@ -161,7 +161,7 @@ public class AwsS3Utils {
         try (S3Presigner presigner = S3Presigner.create()) {
 
             GetObjectRequest objectRequest = GetObjectRequest.builder()
-                    .bucket(awsS3Properties.getBucketName())
+                    .bucket(bucketName)
                     .key(keyName)
                     .build();
 
@@ -184,7 +184,7 @@ public class AwsS3Utils {
         try (S3Presigner presigner = S3Presigner.create()) {
 
             PutObjectRequest objectRequest = PutObjectRequest.builder()
-                    .bucket(awsS3Properties.getBucketName())
+                    .bucket(bucketName)
                     .key(keyName)
                     .metadata(metadata)
                     .build();

@@ -60,5 +60,5 @@ jinjin:
     admin-token-name: token
   aws:
     s3:
-      bucketName: amz-chris-yo-22-wode-mingzi-hello-world
+      bucketName: jinijn-quick-delivery
       region: us-east-1

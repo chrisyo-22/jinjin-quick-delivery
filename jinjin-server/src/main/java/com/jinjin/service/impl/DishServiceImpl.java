@@ -1,11 +1,16 @@
 package com.jinjin.service.impl;
 
 import com.jinjin.constant.StatusConstant;
+import com.jinjin.dto.DishDTO;
 import com.jinjin.entity.Dish;
+import com.jinjin.entity.DishFlavor;
 import com.jinjin.entity.Setmeal;
+import com.jinjin.mapper.CategoryMapper;
+import com.jinjin.mapper.DishFlavorMapper;
 import com.jinjin.mapper.DishMapper;
 import com.jinjin.mapper.SetmealMapper;
 import com.jinjin.service.DishService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +24,8 @@ public class DishServiceImpl implements DishService {
     private DishMapper dishMapper;
     @Autowired
     private SetmealMapper setmealMapper;
+    @Autowired
+    private DishFlavorMapper dishFlavorMapper;
     /**
      * 菜品起售停售
      *
@@ -50,4 +57,26 @@ public class DishServiceImpl implements DishService {
 //            }
         }
     }
+
+    @Override
+    public void addDish(DishDTO dishDTO) {
+        //1. Construct dish information
+        Dish dish = new Dish();
+        //copy properties
+        BeanUtils.copyProperties(dishDTO,dish);
+        //invoke mapper and save
+        dishMapper.insert(dish);
+
+        //2. construct dish flavours
+        List<DishFlavor> dishFlavors = dishDTO.getFlavors();
+        dishFlavors.forEach(flavor->{
+            flavor.setDishId(dish.getId());
+        });
+
+        CategoryMapper dishFlavorsMapper;
+        dishFlavorMapper.insertBatch(dishFlavors);
+
+    }
+
+
 }
