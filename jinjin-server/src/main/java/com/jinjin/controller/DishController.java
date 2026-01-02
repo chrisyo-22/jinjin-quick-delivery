@@ -77,4 +77,13 @@ public class DishController {
         DishVO dishVO = dishService.getById(id);
         return Result.success(dishVO);
     }
+
+
+    @PutMapping
+    @Operation(summary = "Update a dish")
+    public Result update(@RequestBody DishDTO dishDTO){
+        log.info("update dish: {}", dishDTO);
+        dishService.update(dishDTO);
+        return Result.success();
+    }
 }

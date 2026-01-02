@@ -24,8 +24,6 @@ public interface DishMapper {
     @Select("select count(id) from dish where category_id = #{categoryId}")
     Integer countByCategoryId(Long categoryId);
 
-    void update(Dish dish);
-
 
     //    @Options(useGeneratedKeys = true, keyProperty = "id") use only here or the xml, do not use together
     @AutoFill(OperationType.INSERT)
@@ -36,4 +34,11 @@ public interface DishMapper {
     Dish selectById(Long id);
 
     void deleteBatch(List<Long> ids);
+
+    /**
+     * update dish info
+     * @param dish
+     */
+    @AutoFill(OperationType.UPDATE)
+    void update(Dish dish);
 }
