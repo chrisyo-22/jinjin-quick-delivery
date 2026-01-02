@@ -4,4 +4,10 @@
 <mapper namespace="com.jinjin.mapper.SetmealDishMapper">
 
 
+    <select id="countByDishId" resultType="java.lang.Integer">
+        select count(*) from setmeal_dish where dish_id in
+        <foreach collection="dishIds" item="dishId" open="(" close=")">
+            #{dishId}
+        </foreach>
+    </select>
 </mapper>

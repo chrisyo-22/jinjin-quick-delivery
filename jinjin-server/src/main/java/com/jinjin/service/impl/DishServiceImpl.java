@@ -1,15 +1,18 @@
 package com.jinjin.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.jinjin.constant.StatusConstant;
 import com.jinjin.dto.DishDTO;
+import com.jinjin.dto.DishPageQueryDTO;
 import com.jinjin.entity.Dish;
 import com.jinjin.entity.DishFlavor;
 import com.jinjin.entity.Setmeal;
-import com.jinjin.mapper.CategoryMapper;
-import com.jinjin.mapper.DishFlavorMapper;
-import com.jinjin.mapper.DishMapper;
-import com.jinjin.mapper.SetmealMapper;
+import com.jinjin.exception.DeletionNotAllowedException;
+import com.jinjin.mapper.*;
+import com.jinjin.result.PageResult;
 import com.jinjin.service.DishService;
+import com.jinjin.vo.DishVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +29,11 @@ public class DishServiceImpl implements DishService {
     private SetmealMapper setmealMapper;
     @Autowired
     private DishFlavorMapper dishFlavorMapper;
+    @Autowired
+    private DishService dishService;
+    @Autowired
+    private SetmealDishMapper setmealDishMapper;
+
     /**
      * 菜品起售停售
      *
@@ -73,9 +81,61 @@ public class DishServiceImpl implements DishService {
             flavor.setDishId(dish.getId());
         });
 
-        CategoryMapper dishFlavorsMapper;
         dishFlavorMapper.insertBatch(dishFlavors);
 
+    }
+
+    @Override
+    public PageResult page(DishPageQueryDTO pageQueryDTO) {
+        //set page params:
+        PageHelper.startPage(pageQueryDTO.getPage(), pageQueryDTO.getPageSize());
+
+
+        //invoke mapper
+        Page<DishVO> page = dishMapper.list(pageQueryDTO);
+
+        //encapsulate as PageResult
+        return new PageResult(page.getTotal(), page.getResult());
+    }
+
+    @Override
+    @Transactional
+    public void delete(List<Long> ids) {
+        //1. check dish is active, active is not allowed to delete
+        ids.forEach(id->{
+            Dish dish = dishMapper.selectById(id);
+            if(dish.getStatus() == StatusConstant.ENABLE){
+                throw new DeletionNotAllowedException("Deletion not allowed, dish is active:");
+            }
+        });
+
+        //2. check if dish is used in setmeal, setmeal is not allowed to delete
+        Integer count= setmealDishMapper.countByDishId(ids);
+        if(count > 0){
+            throw new DeletionNotAllowedException("Deletion not allowed, dish is used in set meal:");
+        }
+
+        //3.delete from dish table
+
+        dishMapper.deleteBatch(ids);
+        //4.delete from dish_flavor table
+        dishFlavorMapper.deleteBatch(ids);
+    }
+
+    @Override
+    public DishVO getById(Long dishId) {
+
+        DishVO dishV0 = new DishVO();
+        //1.query dish basic info on dish id and copy to vo object
+        Dish dish = dishMapper.selectById(dishId);
+        BeanUtils.copyProperties(dish,dishV0);
+
+        //2. query flavor info based on dish id
+        List<DishFlavor> flavors = dishFlavorMapper.selectByDishId(dishId);
+        dishV0.setFlavors(flavors);
+
+        //3. construct vo object and return
+        return dishV0;
     }
 
 

@@ -11,4 +11,30 @@
     <update id="update">
 
     </update>
+
+    <delete id="deleteBatch">
+        delete from dish where id in
+        <foreach collection="ids" item="id" open="(" close=")">
+            #{id}
+        </foreach>
+
+    </delete>
+
+
+    <select id="list" resultType="com.jinjin.vo.DishVO">
+        select t1.*, t2.name as categoryName from dish t1, category t2 where t1.category_id = t2.id
+        <if test="name != null">
+            and t1.name like concat('%', #{name}, '%')
+        </if>
+        <if test="status != null">
+            and t1.status = #{status}
+        </if>
+        <if test="category_id != null">
+            and category_id = #{categoryId}
+        </if>
+        order by update_time desc;
+    </select>
+    <select id="selectById" resultType="com.jinjin.entity.Dish">
+        select * from dish where id = #{id}
+    </select>
 </mapper>
