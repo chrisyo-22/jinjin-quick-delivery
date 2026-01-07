@@ -7,3 +7,8 @@ sky:
     database: sky_take_out
     username: root
     password: chris
+
+jinjin-redis:
+  database: 0
+  port: 6379
+  host: localhost

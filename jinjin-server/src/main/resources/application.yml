@@ -20,6 +20,11 @@ spring:
       fail-on-unknown-properties: false
     default-property-inclusion: non_null
     time-zone: UTC
+  redis:
+    database: ${jinjin-redis.database}
+    port: ${jinjin-redis.port}
+    host: ${jinjin-redis.host}
+
 
 
 
