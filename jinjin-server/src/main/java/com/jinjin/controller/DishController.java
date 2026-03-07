@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.web.bind.annotation.*;
 import com.jinjin.service.DishService;
 
@@ -30,6 +31,7 @@ public class DishController {
      */
     @PostMapping("/status/{status}")
     @Operation(summary ="菜品起售停售")
+    @CacheEvict(cacheNames = "dishCache", allEntries = true)
     public Result<String> startOrStop(@PathVariable Integer status, Long id){
         dishService.startOrStop(status,id);
         return Result.success();
@@ -41,6 +43,7 @@ public class DishController {
      */
     @Operation(summary = "Add a dish")
     @PostMapping
+    @CacheEvict(cacheNames = "dishCache", allEntries = true)
     public Result addDish(@RequestBody DishDTO dishDTO){
         log.info("add dish: {}", dishDTO);
         dishService.addDish(dishDTO);
@@ -64,6 +67,7 @@ public class DishController {
      */
     @Operation(summary = "Delete Dish")
     @DeleteMapping
+    @CacheEvict(cacheNames = "dishCache", allEntries = true)
     public Result delete(@RequestParam List<Long> ids){
         log.info("delete dish: {}", ids);
         dishService.delete(ids);
@@ -81,6 +85,7 @@ public class DishController {
 
     @PutMapping
     @Operation(summary = "Update a dish")
+    @CacheEvict(cacheNames = "dishCache", allEntries = true)
     public Result update(@RequestBody DishDTO dishDTO){
         log.info("update dish: {}", dishDTO);
         dishService.update(dishDTO);

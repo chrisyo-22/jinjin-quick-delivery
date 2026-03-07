@@ -122,6 +122,7 @@ public class EmployeeController {
     @PutMapping("/{id}")
     public Result updateEmp(@PathVariable Long id, @RequestBody EmployeeDTO employeeDTO){
         log.info("updating employee: {}, empId: {}", employeeDTO, id);
+        employeeDTO.setId(id);
         employeeService.update(employeeDTO);
         return Result.success();
     }

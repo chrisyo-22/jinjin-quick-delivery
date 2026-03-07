@@ -47,4 +47,13 @@ public class GlobalExceptionHandler {
         return Result.error(MessageConstant.UNKNOWN_ERROR);
     }
 
+    /**
+     * Catch-all for any other exceptions
+     */
+    @ExceptionHandler(Exception.class)
+    public Result handleAllExceptions(Exception ex) {
+        log.error("Unexpected error: {}", ex.getMessage(), ex);
+        return Result.error("Internal server error: " + ex.getMessage());
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.jinjin.config;
 
 import com.jinjin.interceptor.JwtTokenAdminInterceptor;
+import com.jinjin.interceptor.JwtTokenUserInterceptor;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import lombok.extern.slf4j.Slf4j;
@@ -37,6 +38,8 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
      */
     @Autowired
     private JwtTokenAdminInterceptor jwtTokenAdminInterceptor;
+    @Autowired
+    private JwtTokenUserInterceptor jwtTokenUserInterceptor;
 
     /**
      * 注册自定义拦截器
@@ -61,6 +64,9 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
         registry.addInterceptor(jwtTokenAdminInterceptor)
                 .addPathPatterns("/admin/**")        // 拦截所有管理端请求
                 .excludePathPatterns("/admin/employee/login");  // 登录接口例外，无需验证
+        registry.addInterceptor(jwtTokenUserInterceptor)
+                .addPathPatterns("/user/**")
+                .excludePathPatterns("/user/user/login", "/user/shop/status");
     }
 
     /**

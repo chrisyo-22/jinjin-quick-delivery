@@ -1,0 +1,150 @@
+[INFO] Scanning for projects...
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] jinjin-quick-delivery                                              [pom]
+[INFO] jinjin-common                                                      [jar]
+[INFO] jinjin-pojo                                                        [jar]
+[INFO] jinjin-server                                                      [jar]
+[INFO] 
+[INFO] ------------------< com.jinjin:jinjin-quick-delivery >------------------
+[INFO] Building jinjin-quick-delivery 1.0-SNAPSHOT                        [1/4]
+[INFO]   from pom.xml
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.5.5:run (default-cli) > test-compile @ jinjin-quick-delivery >>>
+[INFO] 
+[INFO] <<< spring-boot:3.5.5:run (default-cli) < test-compile @ jinjin-quick-delivery <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.5.5:run (default-cli) @ jinjin-quick-delivery ---
+[INFO] 
+[INFO] ----------------------< com.jinjin:jinjin-common >----------------------
+[INFO] Building jinjin-common 1.0-SNAPSHOT                                [2/4]
+[INFO]   from jinjin-common/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.5.5:run (default-cli) > test-compile @ jinjin-common >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ jinjin-common ---
+[INFO] skip non existing resourceDirectory /home/chris/projects/jinjin-quick-delivery/jinjin-common/src/main/resources
+[INFO] skip non existing resourceDirectory /home/chris/projects/jinjin-quick-delivery/jinjin-common/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.14.0:compile (default-compile) @ jinjin-common ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ jinjin-common ---
+[INFO] Not copying test resources
+[INFO] 
+[INFO] --- compiler:3.14.0:testCompile (default-testCompile) @ jinjin-common ---
+[INFO] Not compiling test sources
+[INFO] 
+[INFO] <<< spring-boot:3.5.5:run (default-cli) < test-compile @ jinjin-common <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.5.5:run (default-cli) @ jinjin-common ---
+[INFO] 
+[INFO] -----------------------< com.jinjin:jinjin-pojo >-----------------------
+[INFO] Building jinjin-pojo 1.0-SNAPSHOT                                  [3/4]
+[INFO]   from jinjin-pojo/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.5.5:run (default-cli) > test-compile @ jinjin-pojo >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ jinjin-pojo ---
+[INFO] skip non existing resourceDirectory /home/chris/projects/jinjin-quick-delivery/jinjin-pojo/src/main/resources
+[INFO] skip non existing resourceDirectory /home/chris/projects/jinjin-quick-delivery/jinjin-pojo/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.14.0:compile (default-compile) @ jinjin-pojo ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ jinjin-pojo ---
+[INFO] Not copying test resources
+[INFO] 
+[INFO] --- compiler:3.14.0:testCompile (default-testCompile) @ jinjin-pojo ---
+[INFO] Not compiling test sources
+[INFO] 
+[INFO] <<< spring-boot:3.5.5:run (default-cli) < test-compile @ jinjin-pojo <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.5.5:run (default-cli) @ jinjin-pojo ---
+[INFO] 
+[INFO] ----------------------< com.jinjin:jinjin-server >----------------------
+[INFO] Building jinjin-server 1.0-SNAPSHOT                                [4/4]
+[INFO]   from jinjin-server/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.5.5:run (default-cli) > test-compile @ jinjin-server >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ jinjin-server ---
+[INFO] Copying 2 resources from src/main/resources to target/classes
+[INFO] Copying 6 resources from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.14.0:compile (default-compile) @ jinjin-server ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ jinjin-server ---
+[INFO] Not copying test resources
+[INFO] 
+[INFO] --- compiler:3.14.0:testCompile (default-testCompile) @ jinjin-server ---
+[INFO] Not compiling test sources
+[INFO] 
+[INFO] <<< spring-boot:3.5.5:run (default-cli) < test-compile @ jinjin-server <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.5.5:run (default-cli) @ jinjin-server ---
+[INFO] Attaching agents: []
+Standard Commons Logging discovery in action with spring-jcl: please remove commons-logging.jar from classpath in order to avoid potential conflicts
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.5)
+
+2026-02-09T21:06:05.331-05:00  INFO 9696 --- [           main] com.jinjin.JinJinApplication             : Starting JinJinApplication using Java 21.0.9 with PID 9696 (/home/chris/projects/jinjin-quick-delivery/jinjin-server/target/classes started by chris in /home/chris/projects/jinjin-quick-delivery/jinjin-server)
+2026-02-09T21:06:05.333-05:00  INFO 9696 --- [           main] com.jinjin.JinJinApplication             : The following 1 profile is active: "dev"
+2026-02-09T21:06:06.065-05:00  INFO 9696 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-02-09T21:06:06.067-05:00  INFO 9696 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-02-09T21:06:06.100-05:00  INFO 9696 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 18 ms. Found 0 Redis repository interfaces.
+2026-02-09T21:06:06.620-05:00  INFO 9696 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-02-09T21:06:06.629-05:00  INFO 9696 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-09T21:06:06.629-05:00  INFO 9696 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.44]
+2026-02-09T21:06:06.669-05:00  INFO 9696 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-09T21:06:06.669-05:00  INFO 9696 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1293 ms
+Standard Commons Logging discovery in action with spring-jcl: please remove commons-logging.jar from classpath in order to avoid potential conflicts
+2026-02-09T21:06:07.024-05:00  INFO 9696 --- [           main] com.jinjin.config.S3Configuration        : init aws s3 utils
+2026-02-09T21:06:07.465-05:00  INFO 9696 --- [           main] com.jinjin.config.RedisConfig            : RedisTemplate init...
+2026-02-09T21:06:07.518-05:00  INFO 9696 --- [           main] com.jinjin.config.JacksonConfig          : Configuring Jackson for LocalDateTime serialization with format: yyyy-MM-dd HH:mm
+2026-02-09T21:06:07.604-05:00  INFO 9696 --- [           main] com.jinjin.config.WebMvcConfiguration    : 开始注册自定义拦截器...
+2026-02-09T21:06:07.621-05:00  INFO 9696 --- [           main] o.s.v.b.OptionalValidatorFactoryBean     : Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2026-02-09T21:06:07.717-05:00  INFO 9696 --- [           main] com.jinjin.config.WebMvcConfiguration    : 设置静态资源映射...
+2026-02-09T21:06:07.973-05:00  INFO 9696 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2026-02-09T21:06:07.979-05:00  INFO 9696 --- [           main] com.jinjin.JinJinApplication             : Started JinJinApplication in 3.072 seconds (process running for 3.38)
+2026-02-09T21:06:07.981-05:00  INFO 9696 --- [           main] com.jinjin.JinJinApplication             : server started
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary for jinjin-quick-delivery 1.0-SNAPSHOT:
+[INFO] 
+[INFO] jinjin-quick-delivery .............................. SUCCESS [  0.325 s]
+[INFO] jinjin-common ...................................... SUCCESS [  0.526 s]
+[INFO] jinjin-pojo ........................................ SUCCESS [  0.109 s]
+[INFO] jinjin-server ...................................... FAILURE [19:44 min]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  19:45 min
+[INFO] Finished at: 2026-02-09T21:25:49-05:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.springframework.boot:spring-boot-maven-plugin:3.5.5:run (default-cli) on project jinjin-server: Process terminated with exit code: 137 -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
+[ERROR] 
+[ERROR] After correcting the problems, you can resume the build with the command
+[ERROR]   mvn <args> -rf :jinjin-server

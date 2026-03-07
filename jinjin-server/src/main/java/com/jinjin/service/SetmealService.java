@@ -2,7 +2,9 @@ package com.jinjin.service;
 
 import com.jinjin.dto.SetmealDTO;
 import com.jinjin.dto.SetmealPageQueryDTO;
+import com.jinjin.entity.Setmeal;
 import com.jinjin.result.PageResult;
+import com.jinjin.vo.DishItemVO;
 import com.jinjin.vo.SetmealVO;
 import java.util.List;
 
@@ -46,4 +48,8 @@ public interface SetmealService {
      * @param id
      */
     void startOrStop(Integer status, Long id);
+
+    List<Setmeal> list(Setmeal setmeal);
+
+    List<DishItemVO> getDishItemById(Long id);
 }

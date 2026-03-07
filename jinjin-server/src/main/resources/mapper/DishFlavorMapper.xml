@@ -5,9 +5,11 @@
 
 
     <insert id="insertBatch">
-        insert into dish_flavor values
-        <foreach collection="dishFlavorList" item="flavor" separator=",">
-            (#{null}, #{flavor.dishId},#{flavor.name},#{flavor.value},)
+        insert into dish_flavor
+        (dish_id, name, value)
+        values
+        <foreach collection="dishFlavors" item="flavor" separator=",">
+            (#{flavor.dishId}, #{flavor.name}, #{flavor.value})
         </foreach>
     </insert>
     <delete id="deleteBatch">

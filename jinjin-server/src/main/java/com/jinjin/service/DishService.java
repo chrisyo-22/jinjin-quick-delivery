@@ -3,6 +3,7 @@ package com.jinjin.service;
 
 import com.jinjin.dto.DishDTO;
 import com.jinjin.dto.DishPageQueryDTO;
+import com.jinjin.entity.Dish;
 import com.jinjin.result.PageResult;
 import com.jinjin.vo.DishVO;
 
@@ -20,4 +21,6 @@ public interface DishService {
     DishVO getById(Long dishId);
 
     void update(DishDTO dishDTO);
+
+    List<DishVO> listWithFlavor(Dish dish);
 }

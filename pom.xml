@@ -24,7 +24,7 @@
         <commons.lang>2.6</commons.lang>
         <druid>1.2.27</druid>
         <pagehelper>2.1.0</pagehelper>
-        <aliyun.sdk.oss>3.10.2</aliyun.sdk.oss>
+<!--        <aliyun.sdk.oss>3.10.2</aliyun.sdk.oss>-->
         <knife4j>4.5.0</knife4j>
         <springdoc>2.8.0</springdoc>
         <aspectj>3.5.5</aspectj>
@@ -114,11 +114,11 @@
 <!--                <version>${jjwt}</version>-->
 <!--            </dependency>-->
 
-            <dependency>
-                <groupId>com.aliyun.oss</groupId>
-                <artifactId>aliyun-sdk-oss</artifactId>
-                <version>${aliyun.sdk.oss}</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>com.aliyun.oss</groupId>-->
+<!--                <artifactId>aliyun-sdk-oss</artifactId>-->
+<!--                <version>${aliyun.sdk.oss}</version>-->
+<!--            </dependency>-->
 
             <dependency>
                 <groupId>javax.xml.bind</groupId>
@@ -170,6 +170,13 @@
                 <version>3.14.0</version>
                 <configuration>
                     <release>21</release>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
                 </configuration>
             </plugin>
         </plugins>

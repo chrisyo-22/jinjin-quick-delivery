@@ -5,12 +5,14 @@ import com.jinjin.anno.AutoFill;
 import com.jinjin.dto.SetmealPageQueryDTO;
 import com.jinjin.entity.Setmeal;
 import com.jinjin.enumeration.OperationType;
+import com.jinjin.vo.DishItemVO;
 import com.jinjin.vo.SetmealVO;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface SetmealMapper {
@@ -50,4 +52,11 @@ public interface SetmealMapper {
 
     @AutoFill(OperationType.UPDATE)
     void update(Setmeal setmeal);
+
+    List<Setmeal> list(Setmeal setmeal);
+
+    @Select("select sd.name, sd.copies, d.image, d.description from setmeal_dish sd left join dish d on sd.dish_id = d.id where sd.setmeal_id = #{setmealId}")
+    List<DishItemVO> getDishItemBySetmealId(Long setmealId);
+
+    Integer countByMap(Map<String, Object> map);
 }

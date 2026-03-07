@@ -11,6 +11,7 @@ import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface DishMapper {
@@ -31,6 +32,8 @@ public interface DishMapper {
 
     Page<DishVO> list(DishPageQueryDTO pageQueryDTO);
 
+    List<Dish> listByCondition(Dish dish);
+
     Dish selectById(Long id);
 
     void deleteBatch(List<Long> ids);
@@ -41,4 +44,6 @@ public interface DishMapper {
      */
     @AutoFill(OperationType.UPDATE)
     void update(Dish dish);
+
+    Integer countByMap(Map<String, Object> map);
 }

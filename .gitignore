@@ -4,5 +4,6 @@
 *.class
 *Test.java
 **/test/
-
+.m2
+.output.log
 application-dev.yml

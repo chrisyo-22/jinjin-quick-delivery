@@ -1,0 +1,69 @@
+server:
+  port: 8080
+
+spring:
+  profiles:
+    active: dev
+  # circular reference/dependency
+  main:
+    allow-circular-references: true
+  datasource:
+    driver-class-name: ${sky.datasource.driver-class-name}
+    url: jdbc:mysql://${sky.datasource.host}:${sky.datasource.port}/${sky.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+    username: ${sky.datasource.username}
+    password: ${sky.datasource.password}
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+      indent-output: true
+    deserialization:
+      fail-on-unknown-properties: false
+    default-property-inclusion: non_null
+    time-zone: UTC
+  redis:
+    database: ${jinjin-redis.database}
+    port: ${jinjin-redis.port}
+    host: ${jinjin-redis.host}
+
+
+
+
+mybatis:
+  #mapper配置文件
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.jinjin.entity
+  configuration:
+    #开启驼峰命名
+    map-underscore-to-camel-case: true
+
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
+
+logging:
+  level:
+    com:
+      jinjin:
+        mapper: debug
+        service: info
+        controller: info
+
+springdoc:
+  api-docs:
+    enabled: true
+    path: /v3/api-docs
+
+jinjin:
+  jwt:
+    # 设置jwt签名加密时使用的秘钥 (HS256需要至少32字符/256位)
+    admin-secret-key: heychrisyohelloworlddsajdiosajdoisahdosiajinjin2024
+    # 设置jwt过期时间
+    admin-ttl: 7200000
+    # 设置前端传递过来的令牌名称
+    admin-token-name: token
+  aws:
+    s3:
+      bucketName: jinijn-quick-delivery
+      region: us-east-1
